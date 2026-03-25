@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denis · Sciences · Maths</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#faf8f4;--bg2:#f0ebe2;
+  --ink:#1a1814;--ink2:#6b6760;--ink3:#b5b2ac;
+  --sage:#7a9e87;--sky:#8fb4c8;--amber:#c8a870;--lav:#a89ec8;
+  --line:rgba(26,24,20,0.08);
+}
+html,body{height:100%;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+
+.topbar{display:flex;align-items:center;gap:10px;padding:0.65rem 1.5rem;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:50;}
+.tback{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);text-decoration:none;transition:color 0.12s;}
+.tback:hover{color:var(--ink);}
+.tsep{color:var(--ink3);font-size:11px;}
+.ttitle{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);}
+
+.page{max-width:520px;margin:0 auto;padding:3rem 1.5rem 5rem;display:flex;flex-direction:column;gap:0;}
+
+/* Liste simple de matières */
+.subject-row{
+  display:flex;align-items:center;gap:14px;
+  padding:1rem 0;border-bottom:1px solid var(--line);
+  cursor:pointer;transition:opacity 0.12s;
+  text-decoration:none;color:inherit;
+}
+.subject-row:first-of-type{border-top:1px solid var(--line);}
+.subject-row:hover{opacity:0.5;}
+.subject-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.subject-name{font-family:'DM Mono',monospace;font-size:15px;font-weight:300;color:var(--ink);flex:1;}
+.subject-status{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);}
+.subject-status.open{color:var(--sage);}
+.subject-arrow{font-family:'DM Mono',monospace;font-size:13px;color:var(--ink3);}
+
+/* COMING SOON */
+.cs-overlay{display:none;position:fixed;inset:0;background:rgba(250,248,244,0.97);z-index:300;flex-direction:column;align-items:center;justify-content:center;gap:0.9rem;}
+.cs-overlay.open{display:flex;}
+.cs-btn{font-family:'DM Mono',monospace;font-size:11px;padding:8px 20px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--ink2);cursor:pointer;margin-top:0.5rem;transition:all 0.12s;}
+.cs-btn:hover{border-color:var(--ink3);color:var(--ink);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="tback">← denis</a>
+  <span class="tsep">/</span>
+  <span class="ttitle">sciences · maths</span>
+</div>
+
+<div class="page">
+
+  <a href="denis_chimie_generale.html" class="subject-row">
+    <div class="subject-dot" style="background:#a89ec8;"></div>
+    <div class="subject-name">chimie</div>
+    <div class="subject-status open">18 chapitres</div>
+    <div class="subject-arrow">›</div>
+  </a>
+
+  <div class="subject-row" onclick="showCS('physique','🔭')">
+    <div class="subject-dot" style="background:#8fb4c8;"></div>
+    <div class="subject-name">physique</div>
+    <div class="subject-status">bientôt</div>
+    <div class="subject-arrow">›</div>
+  </div>
+
+  <div class="subject-row" onclick="showCS('maths','📐')">
+    <div class="subject-dot" style="background:#c8a870;"></div>
+    <div class="subject-name">maths</div>
+    <div class="subject-status">bientôt</div>
+    <div class="subject-arrow">›</div>
+  </div>
+
+  <div class="subject-row" onclick="showCS('biologie','🧬')">
+    <div class="subject-dot" style="background:#7a9e87;"></div>
+    <div class="subject-name">biologie</div>
+    <div class="subject-status">bientôt</div>
+    <div class="subject-arrow">›</div>
+  </div>
+
+</div>
+
+<div class="cs-overlay" id="cs-overlay">
+  <div style="font-size:26px;" id="cs-emoji">🔭</div>
+  <div style="font-family:'DM Mono',monospace;font-size:18px;font-weight:300;color:var(--ink);" id="cs-name">bientôt</div>
+  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);">// en cours de construction</div>
+  <button class="cs-btn" onclick="document.getElementById('cs-overlay').classList.remove('open')">← retour</button>
+</div>
+
+<script>
+function showCS(name,emoji){
+  document.getElementById('cs-name').textContent=name;
+  document.getElementById('cs-emoji').textContent=emoji;
+  document.getElementById('cs-overlay').classList.add('open');
+}
+</script>
+</body>
+</html>

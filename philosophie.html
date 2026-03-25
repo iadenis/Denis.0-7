@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denis · Philosophie de la science</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#faf8f4;--bg2:#f0ebe2;
+  --ink:#1a1814;--ink2:#6b6760;--ink3:#b5b2ac;
+  --sage:#7a9e87;--lav:#a89ec8;
+  --line:rgba(26,24,20,0.06);
+}
+html,body{min-height:100%;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);}
+
+.topbar{display:flex;align-items:center;gap:10px;padding:0.65rem 1.5rem;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:50;}
+.tback{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);text-decoration:none;transition:color 0.12s;}
+.tback:hover{color:var(--ink);}
+.tsep{color:var(--ink3);font-size:11px;}
+.ttitle{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);}
+
+.wrap{max-width:520px;margin:0 auto;padding:4rem 1.5rem 7rem;display:flex;flex-direction:column;gap:2.5rem;}
+
+/* Animation atome + texte */
+.sci-anim{
+  display:flex;align-items:center;gap:1.75rem;
+  padding:1.5rem 1.75rem;
+  background:var(--bg2);
+  border-radius:14px;
+  border:1px solid var(--line);
+}
+.sci-anim-visual{flex-shrink:0;}
+.sci-anim-text{flex:1;}
+.sci-anim-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;}
+.sci-anim-prose{font-size:13.5px;color:var(--ink2);line-height:1.9;font-weight:300;}
+.sci-anim-prose em{color:var(--ink);font-style:normal;font-weight:400;}
+
+@media(max-width:460px){
+  .sci-anim{flex-direction:column;align-items:flex-start;}
+  .sci-anim-visual{align-self:center;}
+}
+
+/* e1: orbite 1s — petite, rapide */
+@keyframes eorb1{from{transform:rotate(-20deg) translateX(18px) rotate(20deg)}to{transform:rotate(340deg) translateX(18px) rotate(-340deg)}}
+/* e2: orbite 2s — moyenne */
+@keyframes eorb2{from{transform:rotate(40deg) translateX(30px) rotate(-40deg)}to{transform:rotate(400deg) translateX(30px) rotate(-400deg)}}
+/* e3: orbite 2p — grande, lente */
+@keyframes eorb3{from{transform:rotate(100deg) translateX(42px) rotate(-100deg)}to{transform:rotate(460deg) translateX(42px) rotate(-460deg)}}
+
+/* Épistémologie — texte seul */
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="tback">← denis</a>
+  <span class="tsep">/</span>
+  <span class="ttitle">philosophie de la science</span>
+</div>
+
+<div class="wrap">
+
+  <!-- Animation atome + deux paragraphes -->
+  <div class="sci-anim">
+    <div class="sci-anim-visual">
+      <div style="position:relative;width:96px;height:96px;">
+        <svg width="96" height="96" viewBox="0 0 96 96" style="position:absolute;top:0;left:0;">
+          <!-- Orbitale 1s — petite, proche du noyau -->
+          <ellipse cx="48" cy="48" rx="18" ry="6" fill="none" stroke="rgba(122,158,135,0.45)" stroke-width="0.9" transform="rotate(-20,48,48)"/>
+          <!-- Orbitale 2s — moyenne -->
+          <ellipse cx="48" cy="48" rx="30" ry="9" fill="none" stroke="rgba(168,158,200,0.3)" stroke-width="0.9" transform="rotate(40,48,48)"/>
+          <!-- Orbitale 2p — grande, aplatie -->
+          <ellipse cx="48" cy="48" rx="42" ry="11" fill="none" stroke="rgba(200,168,112,0.2)" stroke-width="0.9" transform="rotate(100,48,48)"/>
+          <circle cx="48" cy="48" r="7" fill="#1a1814" opacity="0.08"/>
+          <circle cx="48" cy="48" r="4.5" fill="#1a1814" opacity="0.12"/>
+          <circle cx="48" cy="48" r="3" fill="#1a1814"/>
+          <text x="48" y="50.5" text-anchor="middle" font-family="DM Mono,monospace" font-size="2.8" fill="#faf8f4" opacity="0.9">p⁺n⁰</text>
+        </svg>
+        <div style="position:absolute;top:50%;left:50%;width:0;height:0;">
+          <div style="position:absolute;animation:eorb1 1.4s linear infinite;transform-origin:0 0;">
+            <div style="position:absolute;width:4px;height:4px;border-radius:50%;background:#7a9e87;top:-2px;left:-2px;box-shadow:0 0 4px rgba(122,158,135,0.8);"></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:50%;left:50%;width:0;height:0;">
+          <div style="position:absolute;animation:eorb2 2.8s linear infinite;transform-origin:0 0;">
+            <div style="position:absolute;width:3.5px;height:3.5px;border-radius:50%;background:#a89ec8;top:-1.75px;left:-1.75px;box-shadow:0 0 3px rgba(168,158,200,0.7);"></div>
+          </div>
+        </div>
+        <div style="position:absolute;top:50%;left:50%;width:0;height:0;">
+          <div style="position:absolute;animation:eorb3 4.5s linear infinite;transform-origin:0 0;">
+            <div style="position:absolute;width:3px;height:3px;border-radius:50%;background:#c8a870;top:-1.5px;left:-1.5px;box-shadow:0 0 3px rgba(200,168,112,0.6);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sci-anim-text">
+      <div class="sci-anim-label">// tout est lié</div>
+      <div class="sci-anim-prose">
+        Ce que tu vois, touches, ressens — ton corps, l'air, la lumière — c'est de la matière organisée. Des atomes qui s'assemblent, se lient, réagissent. La <em>chimie</em> décrit ces arrangements. La <em>physique</em> explique pourquoi ils se comportent ainsi. Les deux sont la même réalité, lue à des échelles différentes.
+      </div>
+    </div>
+  </div>
+
+
+</div>
+</body>
+</html>
