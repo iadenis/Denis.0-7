@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denis · Sciences · Médecine</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#faf8f4;--bg2:#f0ebe2;
+  --ink:#1a1814;--ink2:#6b6760;--ink3:#b5b2ac;
+  --sage:#7a9e87;--sky:#8fb4c8;--amber:#c8a870;--lav:#a89ec8;--blush:#e8a598;
+  --line:rgba(26,24,20,0.08);
+}
+html,body{height:100%;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+
+.topbar{display:flex;align-items:center;gap:10px;padding:0.65rem 1.5rem;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:50;}
+.tback{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);text-decoration:none;transition:color 0.12s;}
+.tback:hover{color:var(--ink);}
+.tsep{color:var(--ink3);font-size:11px;}
+.ttitle{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);}
+
+/* HERO — texte uniquement, pas d'animation sur cette version */
+.hero{padding:3rem 1.5rem 2rem;max-width:600px;margin:0 auto;width:100%;}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;}
+.hero-title{font-family:'DM Mono',monospace;font-size:22px;font-weight:300;color:var(--ink);margin-bottom:1rem;line-height:1.3;}
+.hero-body{font-size:13px;color:var(--ink2);line-height:2;font-weight:300;}
+
+/* SECTION HEADER */
+.sec-header{max-width:600px;margin:0 auto;padding:1.75rem 1.5rem 0.75rem;width:100%;}
+.sec-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);padding-bottom:8px;border-bottom:1px solid var(--line);}
+
+/* SUBJECTS GRID */
+.subjects{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:600px;margin:0 auto;padding:0 1.5rem;width:100%;}
+@media(max-width:520px){.subjects{grid-template-columns:1fr;}}
+
+.subject-card{background:white;border:1px solid var(--line);border-radius:12px;padding:1.25rem 1.1rem;cursor:pointer;transition:all 0.13s;display:flex;flex-direction:column;gap:0.5rem;text-decoration:none;color:inherit;}
+.subject-card:hover{border-color:var(--ink3);background:var(--bg2);transform:translateY(-2px);box-shadow:0 4px 14px rgba(26,24,20,0.06);}
+.subject-card.dim{opacity:0.55;cursor:default;}
+.subject-card.dim:hover{transform:none;box-shadow:none;border-color:var(--line);background:white;}
+.subject-dot{width:8px;height:8px;border-radius:50%;margin-bottom:0.2rem;}
+.subject-name{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:var(--ink);}
+.subject-status{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);margin-top:2px;}
+.subject-status.open{color:var(--sage);}
+
+/* MÉDECINE — notice coming soon */
+.medecine-notice{max-width:600px;margin:1.5rem auto 0;padding:0 1.5rem;width:100%;}
+.medecine-card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:1.35rem 1.5rem;display:flex;flex-direction:column;gap:0.65rem;}
+.medecine-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);}
+.medecine-title{font-family:'DM Mono',monospace;font-size:14px;font-weight:300;color:var(--ink);}
+.medecine-body{font-size:13px;color:var(--ink2);line-height:1.75;}
+.medecine-tools{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px;}
+.medecine-tool{font-family:'DM Mono',monospace;font-size:10px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:white;color:var(--ink2);text-decoration:none;transition:all 0.12s;}
+.medecine-tool:hover{border-color:var(--ink3);color:var(--ink);}
+.medecine-tool.active{border-color:rgba(26,24,20,0.2);color:var(--ink);}
+
+/* BOTTOM STRIP */
+.bottom-strip{max-width:600px;margin:2rem auto 0;padding:0 1.5rem 3rem;width:100%;}
+.bs-inner{border:1px solid var(--line);border-radius:11px;background:white;overflow:hidden;}
+.bs-row{display:flex;align-items:center;gap:10px;padding:10px 14px;text-decoration:none;color:inherit;transition:background 0.11s;}
+.bs-row:hover{background:var(--bg2);}
+.bs-icon{font-size:13px;}
+.bs-text{flex:1;}
+.bs-title{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);}
+.bs-arrow{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink3);}
+
+/* COMING SOON */
+.cs-overlay{display:none;position:fixed;inset:0;background:rgba(250,248,244,0.97);z-index:300;flex-direction:column;align-items:center;justify-content:center;gap:0.9rem;}
+.cs-overlay.open{display:flex;}
+.cs-btn{font-family:'DM Mono',monospace;font-size:11px;padding:8px 20px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--ink2);cursor:pointer;margin-top:0.5rem;transition:all 0.12s;}
+.cs-btn:hover{border-color:var(--ink3);color:var(--ink);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="tback">← denis</a>
+  <span class="tsep">/</span>
+  <span class="ttitle">sciences · maths · médecine</span>
+</div>
+
+<!-- HERO — texte seul -->
+<div class="hero">
+  <div class="hero-eyebrow">// curiosité intégrée</div>
+  <div class="hero-title">les sciences sont cachées<br>dans tout ce que tu touches</div>
+  <div class="hero-body">Les disciplines n'existent que pour découper le réel. Le réel, lui, ne se divise pas. Chaque question mène à une autre — d'une science à l'autre, sans frontière.</div>
+</div>
+
+<!-- SCIENCES & MATHS -->
+<div class="sec-header">
+  <div class="sec-label">// sciences · maths</div>
+</div>
+<div class="subjects">
+  <div class="subject-card dim" onclick="showCS('physique','🔭')">
+    <div class="subject-dot" style="background:#8fb4c8"></div>
+    <div class="subject-name">physique</div>
+    <div class="subject-status">bientôt</div>
+  </div>
+  <a href="denis_chimie_generale.html" class="subject-card">
+    <div class="subject-dot" style="background:#a89ec8"></div>
+    <div class="subject-name">chimie</div>
+    <div class="subject-status open">18 chapitres →</div>
+  </a>
+  <div class="subject-card dim" onclick="showCS('maths','📐')">
+    <div class="subject-dot" style="background:#c8a870"></div>
+    <div class="subject-name">maths</div>
+    <div class="subject-status">bientôt</div>
+  </div>
+</div>
+
+<!-- MÉDECINE -->
+<div class="medecine-notice">
+  <div class="medecine-card">
+    <div class="medecine-eyebrow">// médecine · outils cliniques</div>
+    <div class="medecine-title">bibliothèques de travail</div>
+    <div class="medecine-body">
+      Les outils médicaux sont disponibles — ce sont des bibliothèques pour approfondir et travailler, pas des cours d'enseignement. D'autres modules (anatomie, physiologie, ECNI…) arrivent.
+    </div>
+    <div class="medecine-tools">
+      <a href="pico.html" class="medecine-tool active">PICO · aide au traitement →</a>
+      <a href="diagnostic_medical.html" class="medecine-tool active">aide au diagnostic →</a>
+      <a href="denis_cbip.html" class="medecine-tool active">CBIP · pharmacologie →</a>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM STRIP -->
+<div class="bottom-strip">
+  <div class="bs-inner">
+    <a href="sources_bibliotheques.html" class="bs-row">
+      <span class="bs-icon">📚</span>
+      <span class="bs-text"><span class="bs-title">sources &amp; bibliothèques</span></span>
+      <span class="bs-arrow">›</span>
+    </a>
+  </div>
+</div>
+
+<!-- COMING SOON -->
+<div class="cs-overlay" id="cs-overlay">
+  <div style="font-size:26px;" id="cs-emoji">🔭</div>
+  <div style="font-family:'DM Mono',monospace;font-size:18px;font-weight:300;color:var(--ink);" id="cs-name">bientôt</div>
+  <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);">// en cours de construction</div>
+  <button class="cs-btn" onclick="document.getElementById('cs-overlay').classList.remove('open')">← retour</button>
+</div>
+
+<script>
+function showCS(name,emoji){
+  document.getElementById('cs-name').textContent=name;
+  document.getElementById('cs-emoji').textContent=emoji;
+  document.getElementById('cs-overlay').classList.add('open');
+}
+</script>
+</body>
+</html>

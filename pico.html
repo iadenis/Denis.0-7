@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denis · PICO</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#faf8f4;--bg2:#f0ebe2;--bg3:#e8dfd0;
+  --ink:#1a1814;--ink2:#6b6760;--ink3:#b5b2ac;
+  --sage:#7a9e87;--sky:#8fb4c8;--amber:#c8a870;--lav:#a89ec8;
+  --green:#1a4a2e;--green-light:#e8f0eb;--green-mid:#2d7a4a;
+  --warn:#7a3a1a;--warn-light:#f5ebe3;
+  --line:rgba(26,24,20,0.08);
+}
+html,body{min-height:100%;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;}
+
+.topbar{display:flex;align-items:center;gap:12px;padding:0.65rem 1.5rem;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:50;}
+.tback{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);text-decoration:none;transition:color 0.12s;}
+.tback:hover{color:var(--ink);}
+.tsep{color:var(--ink3);font-size:11px;}
+.ttitle{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);flex:1;}
+.tbadge{font-family:'DM Mono',monospace;font-size:9px;padding:2px 8px;border-radius:999px;background:var(--green-light);border:1px solid rgba(26,74,46,0.2);color:var(--green);}
+
+/* layout */
+.layout{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 45px);}
+@media(max-width:800px){.layout{grid-template-columns:1fr;}}
+
+/* form panel */
+.form-panel{border-right:1px solid var(--line);padding:1.5rem;display:flex;flex-direction:column;gap:1.1rem;overflow-y:auto;background:white;}
+.flabel{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+.fbadge{border-radius:3px;padding:1px 5px;font-size:9px;font-family:'DM Mono',monospace;color:white;}
+.fbadge.p{background:var(--green);}
+.fbadge.i{background:var(--green-mid);}
+.fbadge.c{background:#5a8a6a;}
+.fbadge.o{background:#8a6d1a;}
+textarea,input[type=text]{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:var(--bg);transition:border-color 0.12s;resize:vertical;}
+textarea:focus,input[type=text]:focus{outline:none;border-color:var(--green);}
+textarea{min-height:72px;}
+
+/* source chips */
+.sources-row{display:flex;flex-wrap:wrap;gap:5px;}
+.src-chip{display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:10px;padding:3px 8px;border-radius:999px;border:1px solid var(--line);background:white;color:var(--ink2);transition:all 0.12s;cursor:pointer;user-select:none;}
+.src-chip.on{background:var(--green-light);border-color:rgba(26,74,46,0.25);color:var(--green);}
+.src-chip .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:0.5;}
+
+/* add URL */
+.add-url{display:flex;gap:6px;margin-top:2px;}
+.add-url input{font-size:12px;padding:6px 9px;}
+.add-url button{font-family:'DM Mono',monospace;font-size:10px;padding:6px 10px;border-radius:6px;background:var(--ink);color:var(--bg);border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.add-url button:hover{opacity:0.75;}
+
+/* run button */
+.run-btn{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.06em;padding:10px 20px;border-radius:999px;background:var(--green);color:white;border:none;cursor:pointer;align-self:flex-start;transition:all 0.13s;}
+.run-btn:hover{background:var(--green-mid);}
+.run-btn:disabled{opacity:0.5;cursor:default;}
+
+/* disclaimer */
+.disclaimer{font-size:11px;color:var(--ink3);line-height:1.6;padding:0.8rem;border:1px solid var(--line);border-radius:8px;background:var(--warn-light);}
+
+/* result panel */
+.result-panel{padding:1.5rem;overflow-y:auto;display:flex;flex-direction:column;gap:1.2rem;}
+.r-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px;gap:0.8rem;opacity:0.5;}
+.r-empty-icon{font-size:28px;}
+.r-empty-text{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);text-align:center;line-height:1.8;}
+
+/* result sections */
+.r-section{display:flex;flex-direction:column;gap:6px;}
+.r-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);padding-bottom:5px;border-bottom:1px solid var(--line);}
+.r-pico-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+@media(max-width:600px){.r-pico-grid{grid-template-columns:1fr;}}
+.r-pico-cell{background:white;border:1px solid var(--line);border-radius:8px;padding:0.8rem 0.9rem;}
+.r-pico-head{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
+.r-pico-tag{font-family:'DM Mono',monospace;font-size:9px;padding:1px 6px;border-radius:3px;color:white;}
+.r-pico-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink);}
+.r-pico-val{font-size:12px;color:var(--ink2);line-height:1.6;font-weight:300;}
+.r-body{font-size:13px;color:var(--ink2);line-height:1.8;font-weight:300;}
+.r-body strong{color:var(--ink);font-weight:500;}
+.r-body h4{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink);margin-top:0.8rem;margin-bottom:4px;}
+.r-body ul{list-style:none;display:flex;flex-direction:column;gap:4px;}
+.r-body ul li{padding-left:14px;position:relative;font-size:12.5px;}
+.r-body ul li::before{content:'→';position:absolute;left:0;color:var(--sage);}
+.r-sources-used{display:flex;gap:5px;flex-wrap:wrap;}
+.r-src-tag{font-family:'DM Mono',monospace;font-size:9px;padding:2px 8px;border-radius:999px;background:rgba(143,180,200,0.1);border:1px solid rgba(143,180,200,0.3);color:var(--sky);}
+.r-warn{font-size:11.5px;color:var(--warn);background:var(--warn-light);border:1px solid rgba(122,58,26,0.15);border-radius:8px;padding:0.8rem 1rem;line-height:1.6;}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="tback">← médecine</a>
+  <span class="tsep">/</span>
+  <span class="ttitle">PICO · aide à la décision</span>
+  <span class="tbadge">beta</span>
+</div>
+
+<div class="layout">
+
+  <!-- FORM -->
+  <div class="form-panel">
+
+    <div>
+      <div class="flabel"><span class="fbadge p">P</span> Patient / Problème</div>
+      <textarea id="pico-p" placeholder="Ex : homme 65 ans, BPCO sévère, non fumeur actuel, exacerbations fréquentes..."></textarea>
+    </div>
+
+    <div>
+      <div class="flabel"><span class="fbadge i">I</span> Intervention</div>
+      <textarea id="pico-i" placeholder="Ex : tiotropium 18 µg/j en inhalation..."></textarea>
+    </div>
+
+    <div>
+      <div class="flabel"><span class="fbadge c">C</span> Comparaison <span style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--ink3);font-weight:300;">(optionnel)</span></div>
+      <textarea id="pico-c" placeholder="Ex : formotérol 12 µg 2×/j, ou placebo..."></textarea>
+    </div>
+
+    <div>
+      <div class="flabel"><span class="fbadge o">O</span> Outcome · Résultats attendus</div>
+      <textarea id="pico-o" placeholder="Ex : réduction des exacerbations, tolérance, qualité de vie..."></textarea>
+    </div>
+
+    <div>
+      <div class="flabel">contexte clinique <span style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--ink3);font-weight:300;">(optionnel)</span></div>
+      <input type="text" id="pico-ctx" placeholder="Ex : insuffisance rénale stade 3, Belgique, ambulatoire..." />
+    </div>
+
+    <!-- sources -->
+    <div>
+      <div class="flabel">sources actives</div>
+      <div class="sources-row" id="src-chips">
+        <div class="src-chip on" data-src="cbip" onclick="toggleSrc(this)"><span class="dot"></span>CBIP</div>
+        <div class="src-chip on" data-src="msd" onclick="toggleSrc(this)"><span class="dot"></span>MSD Manuals</div>
+      </div>
+      <div class="add-url" style="margin-top:8px;">
+        <input type="text" id="extra-url" placeholder="+ coller une URL source..." />
+        <button onclick="addExtraUrl()">ajouter</button>
+      </div>
+      <div id="extra-urls" style="display:flex;flex-direction:column;gap:4px;margin-top:5px;"></div>
+    </div>
+
+    <button class="run-btn" id="run-btn" onclick="runPICO()">analyser →</button>
+
+    <div class="disclaimer">
+      ⚠️ Outil d'aide pédagogique uniquement. Ne remplace pas une consultation médicale ni l'avis d'un professionnel de santé. Vérifier toute information avec les sources officielles.
+    </div>
+
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-panel" id="result-panel">
+    <div class="r-empty" id="r-empty">
+      <div class="r-empty-icon">🔬</div>
+      <div class="r-empty-text">Remplis les champs PICO<br>et lance l'analyse.</div>
+    </div>
+    <div id="r-content" style="display:none;"></div>
+  </div>
+
+</div>
+
+<script>
+// ── SOURCE TOGGLE ──
+function toggleSrc(chip) {
+  chip.classList.toggle('on');
+}
+
+// ── EXTRA URLs ──
+let extraUrls = [];
+function addExtraUrl() {
+  const inp = document.getElementById('extra-url');
+  const val = inp.value.trim();
+  if (!val || !val.startsWith('http')) { inp.style.borderColor = '#c85a5a'; setTimeout(()=>inp.style.borderColor='',1000); return; }
+  if (extraUrls.includes(val)) { inp.value=''; return; }
+  extraUrls.push(val);
+  renderExtraUrls();
+  inp.value = '';
+}
+document.getElementById('extra-url').addEventListener('keydown', e => { if(e.key==='Enter') addExtraUrl(); });
+
+function removeExtra(url) {
+  extraUrls = extraUrls.filter(u => u !== url);
+  renderExtraUrls();
+}
+
+function renderExtraUrls() {
+  const wrap = document.getElementById('extra-urls');
+  wrap.innerHTML = '';
+  extraUrls.forEach(url => {
+    const d = document.createElement('div');
+    d.style.cssText = 'display:flex;align-items:center;gap:6px;font-family:"DM Mono",monospace;font-size:10px;color:var(--ink2);';
+    const domain = (() => { try { return new URL(url).hostname; } catch(e) { return url.slice(0,40); } })();
+    d.innerHTML = `<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${domain}</span><button onclick="removeExtra('${url.replace(/'/g,"\\'")}') " style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);background:none;border:none;cursor:pointer;">✕</button>`;
+    wrap.appendChild(d);
+  });
+}
+
+// ── RUN PICO ──
+async function runPICO() {
+  const P = document.getElementById('pico-p').value.trim();
+  const I = document.getElementById('pico-i').value.trim();
+  const C = document.getElementById('pico-c').value.trim();
+  const O = document.getElementById('pico-o').value.trim();
+  const ctx = document.getElementById('pico-ctx').value.trim();
+
+  if (!P || !I || !O) {
+    alert('Remplis au minimum P, I et O pour lancer l\'analyse.');
+    return;
+  }
+
+  const activeSrcs = [...document.querySelectorAll('.src-chip.on')].map(c => c.dataset.src);
+  const srcNames = {
+    cbip: 'CBIP (cbip.be)',
+    msd: 'MSD Manuals (msdmanuals.com/fr)'
+  };
+  const srcList = [
+    ...activeSrcs.map(s => srcNames[s]).filter(Boolean),
+    ...extraUrls
+  ];
+
+  const btn = document.getElementById('run-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> analyse...';
+
+  document.getElementById('r-empty').style.display = 'none';
+  const content = document.getElementById('r-content');
+  content.style.display = 'block';
+  content.innerHTML = `<div class="r-section"><div class="r-lbl">analyse en cours...</div><div class="r-body" style="opacity:0.5;">Interrogation des sources · structuration de la réponse...</div></div>`;
+
+  const systemPrompt = `Tu es un assistant médical pédagogique expert en pharmacologie clinique et en evidence-based medicine. Tu réponds toujours en français.
+
+Ton rôle est d'analyser des questions cliniques structurées selon la méthode PICO en t'appuyant EXCLUSIVEMENT sur les sources suivantes :
+${srcList.map(s => `- ${s}`).join('\n')}
+
+Si les sources mentionnées sont des URL externes (pas CBIP ou MSD), indique que tu ne peux pas les consulter directement mais que l'utilisateur devrait y vérifier les informations.
+
+FORMAT DE RÉPONSE : Réponds UNIQUEMENT en JSON valide avec cette structure exacte :
+{
+  "pico_recap": {
+    "P": "résumé du patient/problème",
+    "I": "résumé de l'intervention",
+    "C": "résumé de la comparaison ou null",
+    "O": "résumé des outcomes"
+  },
+  "analyse": "analyse clinique structurée en HTML simple (pas de markdown). Utilise <h4> pour les sous-titres et <ul><li> pour les listes. Couvre : indication, mécanisme d'action, posologie usuelle, contre-indications principales, interactions importantes, surveillance, commentaire CBIP/MSD si pertinent.",
+  "points_cles": ["point 1", "point 2", "point 3", "point 4", "point 5"],
+  "sources_utilisees": ["CBIP", "MSD Manuals"],
+  "avertissement": "avertissement clinique spécifique à ce cas si nécessaire"
+}`;
+
+  const userMsg = `Analyse PICO :
+P (Patient/Problème) : ${P}
+I (Intervention) : ${I}
+${C ? `C (Comparaison) : ${C}` : ''}
+O (Outcome) : ${O}
+${ctx ? `Contexte : ${ctx}` : ''}
+
+Sources autorisées : ${srcList.join(', ')}
+
+Fournis une analyse clinique rigoureuse basée sur ces sources.`;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userMsg }]
+      })
+    });
+
+    const data = await resp.json();
+    const raw = data.content?.map(b => b.text || '').join('') || '';
+    const clean = raw.replace(/```json|```/g, '').trim();
+
+    let parsed;
+    try { parsed = JSON.parse(clean); }
+    catch(e) {
+      // fallback: show raw
+      content.innerHTML = `<div class="r-section"><div class="r-lbl">réponse</div><div class="r-body">${raw.replace(/\n/g,'<br>')}</div></div>`;
+      return;
+    }
+
+    renderResult(parsed, srcList);
+
+  } catch(err) {
+    content.innerHTML = `<div class="r-section"><div class="r-body" style="color:#c85a5a;">Erreur : ${err.message}</div></div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'analyser →';
+  }
+}
+
+function renderResult(d, srcList) {
+  const content = document.getElementById('r-content');
+  const picoColors = { P: '#1a4a2e', I: '#2d7a4a', C: '#5a8a6a', O: '#8a6d1a' };
+
+  const picoHtml = d.pico_recap ? Object.entries(d.pico_recap).filter(([k,v]) => v).map(([k, v]) => `
+    <div class="r-pico-cell">
+      <div class="r-pico-head"><span class="r-pico-tag" style="background:${picoColors[k]||'#555'}">${k}</span><span class="r-pico-title">${{P:'Patient',I:'Intervention',C:'Comparaison',O:'Outcome'}[k]||k}</span></div>
+      <div class="r-pico-val">${v}</div>
+    </div>`).join('') : '';
+
+  const keyPoints = d.points_cles?.map(p => `<li>${p}</li>`).join('') || '';
+
+  const sourcesHtml = (d.sources_utilisees || srcList).map(s =>
+    `<span class="r-src-tag">${s}</span>`).join('');
+
+  content.innerHTML = `
+    ${picoHtml ? `<div class="r-section"><div class="r-lbl">PICO structuré</div><div class="r-pico-grid">${picoHtml}</div></div>` : ''}
+
+    <div class="r-section">
+      <div class="r-lbl">analyse clinique</div>
+      <div class="r-body">${d.analyse || ''}</div>
+    </div>
+
+    ${keyPoints ? `<div class="r-section"><div class="r-lbl">points clés</div><div class="r-body"><ul>${keyPoints}</ul></div></div>` : ''}
+
+    <div class="r-section">
+      <div class="r-lbl">sources utilisées</div>
+      <div class="r-sources-used">${sourcesHtml}</div>
+    </div>
+
+    ${d.avertissement ? `<div class="r-warn">⚠️ ${d.avertissement}</div>` : ''}
+
+    <div class="r-warn" style="margin-top:0;">
+      Ceci est une aide pédagogique. Consulter toujours les sources directement et un professionnel de santé avant toute décision thérapeutique.
+    </div>
+  `;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denis · Le monde comme un enfant</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#faf8f4;--bg2:#f0ebe2;
+  --ink:#1a1814;--ink2:#6b6760;--ink3:#b5b2ac;
+  --sage:#7a9e87;--sky:#8fb4c8;--amber:#c8a870;--lav:#a89ec8;
+  --line:rgba(26,24,20,0.08);
+}
+html,body{min-height:100%;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);}
+
+.topbar{display:flex;align-items:center;gap:10px;padding:0.65rem 1.5rem;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:50;}
+.tback{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);text-decoration:none;transition:color 0.12s;}
+.tback:hover{color:var(--ink);}
+.tsep{color:var(--ink3);font-size:11px;}
+.ttitle{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);}
+
+.wrap{max-width:520px;margin:0 auto;padding:3rem 1.5rem 5rem;}
+
+.intro{margin-bottom:2.75rem;}
+.intro-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;}
+.intro-title{font-family:'DM Mono',monospace;font-size:24px;font-weight:300;color:var(--ink);margin-bottom:1.1rem;line-height:1.3;}
+.intro-body{font-size:13px;color:var(--ink2);line-height:2;font-weight:300;}
+
+/* SCENES */
+.scenes{border:1px solid var(--line);border-radius:13px;overflow:hidden;}
+.scene{background:white;border-bottom:1px solid var(--line);cursor:pointer;}
+.scene:last-child{border-bottom:none;}
+.scene-head{display:flex;align-items:center;gap:12px;padding:0.95rem 1.2rem;transition:background 0.11s;}
+.scene:hover .scene-head{background:var(--bg2);}
+.scene-emoji{font-size:17px;flex-shrink:0;opacity:0.8;}
+.scene-meta{flex:1;}
+.scene-title{font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);margin-bottom:2px;}
+.scene-q{font-size:11.5px;color:var(--ink3);line-height:1.5;}
+.scene-toggle{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink3);transition:transform 0.18s;}
+.scene.open .scene-toggle{transform:rotate(90deg);}
+
+.scene-body{display:none;border-top:1px solid var(--line);}
+.scene.open .scene-body{display:block;}
+.thread{padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:0.9rem;}
+.ti{display:flex;flex-direction:column;gap:4px;}
+.ti-q{font-size:13px;color:var(--ink);line-height:1.55;}
+.ti-a{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--ink2);line-height:1.75;padding:8px 11px;background:var(--bg2);border-radius:8px;border:1px solid var(--line);}
+.tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px;}
+.tag{font-family:'DM Mono',monospace;font-size:9px;padding:2px 7px;border-radius:999px;}
+.t-c{background:rgba(168,158,200,0.1);border:1px solid rgba(168,158,200,0.22);color:#4a4470;}
+.t-p{background:rgba(143,180,200,0.1);border:1px solid rgba(143,180,200,0.22);color:#1a3a5c;}
+.t-m{background:rgba(200,168,112,0.1);border:1px solid rgba(200,168,112,0.22);color:#7a5e1e;}
+.t-b{background:rgba(122,158,135,0.1);border:1px solid rgba(122,158,135,0.22);color:#3d6b4f;}
+.t-e{background:rgba(244,201,93,0.1);border:1px solid rgba(244,201,93,0.25);color:#7a5e1e;}
+
+.footer-note{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line);font-family:'DM Mono',monospace;font-size:10px;color:var(--ink3);line-height:1.9;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="tback">← denis</a>
+  <span class="tsep">/</span>
+  <span class="ttitle">le monde comme un enfant</span>
+</div>
+
+<div class="wrap">
+
+  <div class="intro">
+    <div class="intro-eyebrow">// curiosité intégrée</div>
+    <div class="intro-title">les sciences sont cachées<br>dans tout ce que tu touches</div>
+    <div class="intro-body">Les disciplines n'existent que pour découper le réel. Le réel, lui, ne se divise pas. Chaque question mène à une autre — d'une science à l'autre, sans frontière.</div>
+  </div>
+
+  <div class="scenes">
+
+    <div class="scene" onclick="this.classList.toggle('open')">
+      <div class="scene-head">
+        <span class="scene-emoji">🕯️</span>
+        <div class="scene-meta">
+          <div class="scene-title">une bougie</div>
+          <div class="scene-q">Qu'est-ce qui brûle vraiment ? D'où vient la lumière ?</div>
+        </div>
+        <span class="scene-toggle">›</span>
+      </div>
+      <div class="scene-body">
+        <div class="thread">
+          <div class="ti">
+            <div class="ti-q">Ce qui brûle</div>
+            <div class="ti-a">La mèche chauffe la paraffine qui fond, puis s'évapore. C'est le gaz qui brûle — pas la cire. La bougie est une usine à gaz miniature.</div>
+            <div class="tags"><span class="tag t-c">chimie · combustion</span></div>
+          </div>
+          <div class="ti">
+            <div class="ti-q">Pourquoi la flamme monte</div>
+            <div class="ti-a">L'air chaud est moins dense — il monte, aspire de l'air frais par le bas. En apesanteur, les flammes sont sphériques.</div>
+            <div class="tags"><span class="tag t-p">physique · convection</span></div>
+          </div>
+          <div class="ti">
+            <div class="ti-q">La lumière jaune</div>
+            <div class="ti-a">Des particules de carbone chauffées au rouge-blanc libèrent des photons. Atomes excités — physique quantique appliquée à une bougie.</div>
+            <div class="tags"><span class="tag t-p">physique quantique</span></div>
+          </div>
+          <div class="ti">
+            <div class="ti-q">Le CO₂ produit</div>
+            <div class="ti-a">Paraffine + O₂ → CO₂ + H₂O. Cette réaction se produit aussi dans tes cellules pour brûler le glucose. La respiration cellulaire est une bougie très lente.</div>
+            <div class="tags"><span class="tag t-b">biochimie</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" onclick="this.classList.toggle('open')">
+      <div class="scene-head">
+        <span class="scene-emoji">🍞</span>
+        <div class="scene-meta">
+          <div class="scene-title">du pain</div>
+          <div class="scene-q">Pourquoi la pâte gonfle ? Qu'est-ce que la levure fait vraiment ?</div>
+        </div>
+        <span class="scene-toggle">›</span>
+      </div>
+      <div class="scene-body">
+        <div class="thread">
+          <div class="ti">
+            <div class="ti-q">La levée</div>
+            <div class="ti-a">La levure fermente le glucose et produit du CO₂. Ce gaz reste piégé dans le réseau de gluten — des millions de bulles microscopiques.</div>
+            <div class="tags"><span class="tag t-b">biologie · fermentation</span></div>
+          </div>
+          <div class="ti">
+            <div class="ti-q">Le gluten</div>
+            <div class="ti-a">Deux protéines (gluténine + gliadine) se lient au pétrissage — réseau élastique à l'échelle moléculaire. Il retient le CO₂.</div>
+            <div class="tags"><span class="tag t-b">biochimie · protéines</span></div>
+          </div>
+          <div class="ti">
+            <div class="ti-q">La croûte dorée</div>
+            <div class="ti-a">Réaction de Maillard : acides aminés + sucres à haute température → centaines de molécules aromatiques nouvelles. Ce n'est pas de la caramélisation.</div>
+            <div class="tags"><span class="tag t-c">chimie organique</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" onclick="this.classList.toggle('open')">
+      <div class="scene-head">
+        <span class="scene-emoji">🌧️</span>
+        <div class="scene-meta">
+          <div class="scene-title">la pluie</div>
+          <div class="scene-q">D'où vient l'eau dans les nuages ? Pourquoi les gouttes ont une vitesse limite ?</div>
+        </div>
+        <span class="scene-toggle">›</span>
+      </div>
+      <div class="scene-body">
+        <div class="thread">
+          <div class="ti">
+            <div class="ti-q">La vapeur qui monte</div>
+            <div class="ti-a">L'énergie solaire casse les liaisons hydrogène entre molécules d'eau. La vapeur monte, se refroidit, se condense autour de poussières — nuage.</div>
+            <div class="tags"><span class="tag t-c">liaisons hydrogène</span><span class="tag t-p">thermodynamique</span></div>
+          </div>
+          <div class="ti">
+            <div class="ti-q">La vitesse terminale</div>
+            <div class="ti-a">Gravité vers le bas, résistance de l'air vers le haut. À 2 mm, la goutte tombe à ~6 m/s — équilibre des forces, vitesse constante.</div>
+            <div class="tags"><span class="tag t-p">mécanique des fluides</span><span class="tag t-m">équations différentielles</span></div>
+          </div>
+          <div class="ti">
+            <div class="ti-q">Pourquoi l'eau est spéciale</div>
+            <div class="ti-a">Géométrie coudée de H₂O (104,5°) + liaisons hydrogène : liquide à température ambiante, la glace flotte. Sans cette anomalie, pas de vie.</div>
+            <div class="tags"><span class="tag t-c">géométrie moléculaire</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" onclick="this.classList.toggle('open')">
+      <div class="scene-head">
+        <span class="scene-emoji">📱</span>
+        <div class="scene-meta">
+          <div class="scene-title">ton téléphone charge</div>
+          <div class="scene-q">Comment l'électricité se stocke-t-elle ? Pourquoi la batterie se dégrade ?</div>
+        </div>
+        <span class="scene-toggle">›</span>
+      </div>
+      <div class="scene-body">
+        <div class="thread">
+          <div class="ti">
+            <div class="ti-q">La batterie lithium</div>
+            <div class="ti-a">Les ions Li⁺ voyagent de l'anode à la cathode en se déchargeant. Les électrons empruntent le circuit extérieur — c'est le courant. En charge, chemin inverse.</div>
+            <div class="tags"><span class="tag t-c">électrochimie · redox</span></div>
+          </div>
+          <div class="ti">
+            <div class="ti-q">La dégradation</div>
+            <div class="ti-a">À chaque cycle, de minuscules cristaux de lithium métallique se déposent. Ils réduisent la surface active. L'électrochimie gagne toujours à la longue.</div>
+            <div class="tags"><span class="tag t-c">thermodynamique</span></div>
+          </div>
+          <div class="ti">
+            <div class="ti-q">L'écran tactile</div>
+            <div class="ti-a">Verre recouvert d'oxyde d'indium-étain — transparent et conducteur. Ton doigt perturbe un champ électrostatique ; le processeur calcule la position.</div>
+            <div class="tags"><span class="tag t-p">électrostatique</span><span class="tag t-m">traitement du signal</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene" onclick="this.classList.toggle('open')">
+      <div class="scene-head">
+        <span class="scene-emoji">🛒</span>
+        <div class="scene-meta">
+          <div class="scene-title">les courses</div>
+          <div class="scene-q">Pourquoi la tomate coûte ce prix ? Qui l'a touchée avant toi ?</div>
+        </div>
+        <span class="scene-toggle">›</span>
+      </div>
+      <div class="scene-body">
+        <div class="thread">
+          <div class="ti">
+            <div class="ti-q">La chaîne</div>
+            <div class="ti-a">Agriculteur → coopérative → transporteur → plateforme → distributeur → caissier. En moyenne 5 à 8 intermédiaires — chacun ajoute une marge.</div>
+            <div class="tags"><span class="tag t-e">économie · chaînes de valeur</span></div>
+          </div>
+          <div class="ti">
+            <div class="ti-q">La variation des prix</div>
+            <div class="ti-a">Offre et demande, coût de l'énergie, irrigation, taux de change, météo. Une sécheresse en Espagne monte le prix ici.</div>
+            <div class="tags"><span class="tag t-e">microéconomie</span></div>
+          </div>
+          <div class="ti">
+            <div class="ti-q">Ce que le prix cache</div>
+            <div class="ti-a">Eau consommée, CO₂ du transport, conditions de travail — les externalités. Le coût écologique réel est bien plus élevé que l'étiquette.</div>
+            <div class="tags"><span class="tag t-e">externalités</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-note">
+    // chaque question mène à une autre<br>
+    // pas de frontières entre disciplines<br>
+    // le monde est cohérent — c'est nous qui le découpons
+  </div>
+
+</div>
+</body>
+</html>

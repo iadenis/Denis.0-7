@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denis · Español Robot</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#faf8f4;--ink:#1a1814;--ink2:#6b6760;--ink3:#b5b2ac;--amber:#c8a870;--line:rgba(26,24,20,0.08);}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;}
+.topbar{display:flex;align-items:center;gap:10px;padding:0.65rem 1.5rem;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:50;}
+.tback{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);text-decoration:none;transition:color 0.12s;}
+.tback:hover{color:var(--ink);}
+.tsep{color:var(--ink3);font-size:11px;}
+.ttitle{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);}
+.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:3rem 1.5rem;text-align:center;}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--amber);margin:0 auto;}
+.title{font-family:'DM Mono',monospace;font-size:22px;font-weight:300;color:var(--ink);}
+.sub{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);}
+.desc{font-size:13px;color:var(--ink2);line-height:1.7;max-width:360px;}
+.btn{font-family:'DM Mono',monospace;font-size:11px;padding:8px 20px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--ink2);cursor:pointer;margin-top:0.5rem;text-decoration:none;display:inline-block;transition:all 0.12s;}
+.btn:hover{border-color:var(--ink3);color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="tback">← denis</a>
+  <span class="tsep">/</span>
+  <span class="ttitle">español robot</span>
+</div>
+<div class="center">
+  <div class="dot"></div>
+  <div class="title">español robot</div>
+  <div class="sub">// en construcción</div>
+  <div class="desc">Gramática, conjugación, ser/estar, comunicación — este módulo llega pronto.</div>
+  <a href="index.html" class="btn">← retour à denis</a>
+</div>
+</body>
+</html>
